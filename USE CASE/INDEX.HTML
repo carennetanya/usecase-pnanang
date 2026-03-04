@@ -1,0 +1,2499 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Penjelasan Diagram UniPortal</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #f0f4fb;
+        font-family: "Nunito", sans-serif;
+        padding: 24px 16px;
+        min-height: 100vh;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 22px;
+        font-weight: 900;
+        color: #1a2744;
+        margin-bottom: 4px;
+      }
+      .sub {
+        text-align: center;
+        font-size: 13px;
+        color: #8a9abf;
+        margin-bottom: 24px;
+      }
+
+      /* Tab buttons */
+      .tabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .tab-btn {
+        padding: 8px 16px;
+        border-radius: 30px;
+        border: 2px solid #dde3f0;
+        background: white;
+        font-family: "Nunito", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: #5a6a8a;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .tab-btn:hover {
+        border-color: #3b7ef8;
+        color: #3b7ef8;
+      }
+      .tab-btn.active {
+        background: #1a2744;
+        color: white;
+        border-color: #1a2744;
+      }
+
+      /* Panels */
+      .panel {
+        display: none;
+      }
+      .panel.active {
+        display: block;
+      }
+
+      .card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 6px 30px rgba(30, 50, 100, 0.1);
+        padding: 28px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .card h2 {
+        font-size: 18px;
+        font-weight: 900;
+        color: #1a2744;
+        margin-bottom: 6px;
+      }
+      .card .desc {
+        font-size: 13.5px;
+        color: #6a7a9a;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      /* highlight badge */
+      .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 800;
+        margin-right: 6px;
+        margin-bottom: 4px;
+      }
+      .badge-blue {
+        background: #dbeafe;
+        color: #1a3c8f;
+      }
+      .badge-purple {
+        background: #ede9fe;
+        color: #4c1d95;
+      }
+      .badge-orange {
+        background: #ffedd5;
+        color: #7c3009;
+      }
+      .badge-red {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .badge-green {
+        background: #d1fae5;
+        color: #064e3b;
+      }
+
+      /* Info box */
+      .info-box {
+        background: #f6f8fc;
+        border-left: 4px solid #3b7ef8;
+        border-radius: 0 10px 10px 0;
+        padding: 12px 16px;
+        margin-top: 14px;
+        font-size: 13px;
+        color: #3a4a6b;
+        line-height: 1.7;
+      }
+      .info-box.orange {
+        border-color: #f07b39;
+        background: #fff8f3;
+      }
+      .info-box.green {
+        border-color: #27ae6f;
+        background: #f0fdf6;
+      }
+      .info-box.red {
+        border-color: #e84040;
+        background: #fff5f5;
+      }
+      .info-box.purple {
+        border-color: #9b59f5;
+        background: #faf5ff;
+      }
+
+      /* ── SVG diagram pieces ── */
+      svg {
+        display: block;
+        margin: 0 auto;
+      }
+
+      .note-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 16px;
+      }
+      @media (max-width: 600px) {
+        .note-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .note-card {
+        background: #f6f8fc;
+        border-radius: 12px;
+        padding: 14px;
+        border: 1.5px solid #dde3f0;
+      }
+      .note-card h4 {
+        font-size: 13px;
+        font-weight: 800;
+        color: #1a2744;
+        margin-bottom: 4px;
+      }
+      .note-card p {
+        font-size: 12.5px;
+        color: #6a7a9a;
+        line-height: 1.5;
+      }
+
+      .step-list {
+        list-style: none;
+        margin-top: 14px;
+      }
+      .step-list li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 10px 0;
+        border-bottom: 1px solid #eef0f6;
+        font-size: 13.5px;
+        color: #3a4a6b;
+        line-height: 1.5;
+      }
+      .step-list li:last-child {
+        border-bottom: none;
+      }
+      .step-num {
+        min-width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #1a2744;
+        color: white;
+        font-weight: 800;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📊 Penjelasan Diagram UniPortal</h1>
+    <p class="sub">Klik bagian yang ingin kamu pahami</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="show('overview')">
+        🗺️ Overview
+      </button>
+      <button class="tab-btn" onclick="show('actors')">👤 Actors</button>
+      <button class="tab-btn" onclick="show('boundary')">
+        📦 System Boundary
+      </button>
+      <button class="tab-btn" onclick="show('usecases')">⭕ Use Cases</button>
+      <button class="tab-btn" onclick="show('relations')">🔗 Relasi</button>
+      <button class="tab-btn" onclick="show('flow')">🔄 Alur Lengkap</button>
+    </div>
+
+    <!-- ═══════════════ OVERVIEW ═══════════════ -->
+    <div id="panel-overview" class="panel active">
+      <div class="card">
+        <h2>🗺️ Gambaran Besar Diagram</h2>
+        <p class="desc">
+          Diagram ini menunjukkan <strong>siapa</strong> yang berinteraksi
+          dengan sistem UniPortal dan <strong>apa</strong> yang bisa mereka
+          lakukan. Terbagi jadi 3 zona utama:
+        </p>
+
+        <svg
+          viewBox="0 0 800 420"
+          width="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          font-family="Nunito,sans-serif"
+        >
+          <rect width="800" height="420" fill="#f6f8fc" rx="14" />
+
+          <!-- Zone labels -->
+          <!-- Left zone -->
+          <rect
+            x="10"
+            y="10"
+            width="130"
+            height="400"
+            rx="12"
+            fill="#dbeafe"
+            fill-opacity="0.5"
+            stroke="#3b7ef8"
+            stroke-width="1.5"
+            stroke-dasharray="6,3"
+          />
+          <text
+            x="75"
+            y="35"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a58c8"
+          >
+            ZONA KIRI
+          </text>
+          <text
+            x="75"
+            y="50"
+            text-anchor="middle"
+            font-size="11"
+            fill="#3b7ef8"
+          >
+            Actors Luar
+          </text>
+
+          <!-- Center zone (system) -->
+          <rect
+            x="155"
+            y="10"
+            width="490"
+            height="400"
+            rx="12"
+            fill="#e0e7ff"
+            fill-opacity="0.4"
+            stroke="#6366f1"
+            stroke-width="2"
+          />
+          <text
+            x="400"
+            y="35"
+            text-anchor="middle"
+            font-size="13"
+            font-weight="800"
+            fill="#3730a3"
+          >
+            ZONA TENGAH — UniPortal System
+          </text>
+          <text
+            x="400"
+            y="52"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6366f1"
+          >
+            Subject Boundary · Semua Use Case ada di sini
+          </text>
+
+          <!-- Right zone -->
+          <rect
+            x="660"
+            y="10"
+            width="130"
+            height="400"
+            rx="12"
+            fill="#ede9fe"
+            fill-opacity="0.5"
+            stroke="#9b59f5"
+            stroke-width="1.5"
+            stroke-dasharray="6,3"
+          />
+          <text
+            x="725"
+            y="35"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#6d28d9"
+          >
+            ZONA KANAN
+          </text>
+          <text
+            x="725"
+            y="50"
+            text-anchor="middle"
+            font-size="11"
+            fill="#9b59f5"
+          >
+            Actor Luar
+          </text>
+
+          <!-- Student -->
+          <circle
+            cx="75"
+            cy="130"
+            r="20"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <text x="75" y="136" text-anchor="middle" font-size="16">🎓</text>
+          <line
+            x1="75"
+            y1="150"
+            x2="75"
+            y2="185"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <line
+            x1="55"
+            y1="165"
+            x2="95"
+            y2="165"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <line
+            x1="75"
+            y1="185"
+            x2="58"
+            y2="205"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <line
+            x1="75"
+            y1="185"
+            x2="92"
+            y2="205"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <text
+            x="75"
+            y="224"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a58c8"
+          >
+            Student
+          </text>
+
+          <!-- Registrar -->
+          <circle
+            cx="75"
+            cy="300"
+            r="20"
+            fill="#ffedd5"
+            stroke="#f07b39"
+            stroke-width="2"
+          />
+          <text x="75" y="306" text-anchor="middle" font-size="16">🏫</text>
+          <line
+            x1="75"
+            y1="320"
+            x2="75"
+            y2="355"
+            stroke="#f07b39"
+            stroke-width="2"
+          />
+          <line
+            x1="55"
+            y1="335"
+            x2="95"
+            y2="335"
+            stroke="#f07b39"
+            stroke-width="2"
+          />
+          <line
+            x1="75"
+            y1="355"
+            x2="58"
+            y2="375"
+            stroke="#f07b39"
+            stroke-width="2"
+          />
+          <line
+            x1="75"
+            y1="355"
+            x2="92"
+            y2="375"
+            stroke="#f07b39"
+            stroke-width="2"
+          />
+          <text
+            x="75"
+            y="394"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#c2550a"
+          >
+            Registrar
+          </text>
+
+          <!-- Professor -->
+          <circle
+            cx="725"
+            cy="200"
+            r="20"
+            fill="#ede9fe"
+            stroke="#9b59f5"
+            stroke-width="2"
+          />
+          <text x="725" y="206" text-anchor="middle" font-size="16">📚</text>
+          <line
+            x1="725"
+            y1="220"
+            x2="725"
+            y2="255"
+            stroke="#9b59f5"
+            stroke-width="2"
+          />
+          <line
+            x1="705"
+            y1="235"
+            x2="745"
+            y2="235"
+            stroke="#9b59f5"
+            stroke-width="2"
+          />
+          <line
+            x1="725"
+            y1="255"
+            x2="708"
+            y2="275"
+            stroke="#9b59f5"
+            stroke-width="2"
+          />
+          <line
+            x1="725"
+            y1="255"
+            x2="742"
+            y2="275"
+            stroke="#9b59f5"
+            stroke-width="2"
+          />
+          <text
+            x="725"
+            y="294"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#6d28d9"
+          >
+            Professor
+          </text>
+
+          <!-- Use cases (simplified) -->
+          <ellipse
+            cx="310"
+            cy="110"
+            rx="100"
+            ry="28"
+            fill="white"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <text
+            x="310"
+            y="106"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#1a3c8f"
+          >
+            Register for Courses
+          </text>
+          <text
+            x="310"
+            y="121"
+            text-anchor="middle"
+            font-size="9.5"
+            fill="#6b88c9"
+          >
+            REQ-1
+          </text>
+
+          <ellipse
+            cx="310"
+            cy="195"
+            rx="90"
+            ry="26"
+            fill="white"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <text
+            x="310"
+            y="191"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#1a3c8f"
+          >
+            View Grades
+          </text>
+          <text
+            x="310"
+            y="206"
+            text-anchor="middle"
+            font-size="9.5"
+            fill="#6b88c9"
+          >
+            REQ-2
+          </text>
+
+          <ellipse
+            cx="530"
+            cy="110"
+            rx="95"
+            ry="28"
+            fill="white"
+            stroke="#9b59f5"
+            stroke-width="2"
+          />
+          <text
+            x="530"
+            y="106"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#4c1d95"
+          >
+            Input Grades
+          </text>
+          <text
+            x="530"
+            y="121"
+            text-anchor="middle"
+            font-size="9.5"
+            fill="#9b59f5"
+          >
+            REQ-3
+          </text>
+
+          <ellipse
+            cx="530"
+            cy="195"
+            rx="110"
+            ry="26"
+            fill="white"
+            stroke="#9b59f5"
+            stroke-width="2"
+          />
+          <text
+            x="530"
+            y="191"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#4c1d95"
+          >
+            Download Class Roster
+          </text>
+          <text
+            x="530"
+            y="206"
+            text-anchor="middle"
+            font-size="9.5"
+            fill="#9b59f5"
+          >
+            REQ-4
+          </text>
+
+          <ellipse
+            cx="400"
+            cy="290"
+            rx="115"
+            ry="28"
+            fill="white"
+            stroke="#f07b39"
+            stroke-width="2"
+          />
+          <text
+            x="400"
+            y="286"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#7c3009"
+          >
+            Open Registration Period
+          </text>
+          <text
+            x="400"
+            y="301"
+            text-anchor="middle"
+            font-size="9.5"
+            fill="#c2550a"
+          >
+            REQ-5
+          </text>
+
+          <ellipse
+            cx="280"
+            cy="370"
+            rx="90"
+            ry="26"
+            fill="#fee2e2"
+            stroke="#e84040"
+            stroke-width="1.5"
+            stroke-dasharray="5,3"
+          />
+          <text
+            x="280"
+            y="366"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#991b1b"
+          >
+            Validate Fee Status
+          </text>
+          <text
+            x="280"
+            y="381"
+            text-anchor="middle"
+            font-size="9.5"
+            fill="#e84040"
+          >
+            REQ-6
+          </text>
+
+          <!-- Arrows simplified -->
+          <line
+            x1="95"
+            y1="140"
+            x2="210"
+            y2="118"
+            stroke="#3b7ef8"
+            stroke-width="1.5"
+            marker-end="url(#a1)"
+          />
+          <line
+            x1="95"
+            y1="155"
+            x2="220"
+            y2="193"
+            stroke="#3b7ef8"
+            stroke-width="1.5"
+            marker-end="url(#a1)"
+          />
+          <line
+            x1="705"
+            y1="208"
+            x2="625"
+            y2="118"
+            stroke="#9b59f5"
+            stroke-width="1.5"
+            marker-end="url(#a2)"
+          />
+          <line
+            x1="705"
+            y1="220"
+            x2="640"
+            y2="192"
+            stroke="#9b59f5"
+            stroke-width="1.5"
+            marker-end="url(#a2)"
+          />
+          <line
+            x1="95"
+            y1="312"
+            x2="285"
+            y2="296"
+            stroke="#f07b39"
+            stroke-width="1.5"
+            marker-end="url(#a3)"
+          />
+
+          <defs>
+            <marker
+              id="a1"
+              markerWidth="7"
+              markerHeight="7"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L7,3.5 z" fill="#3b7ef8" />
+            </marker>
+            <marker
+              id="a2"
+              markerWidth="7"
+              markerHeight="7"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L7,3.5 z" fill="#9b59f5" />
+            </marker>
+            <marker
+              id="a3"
+              markerWidth="7"
+              markerHeight="7"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L7,3.5 z" fill="#f07b39" />
+            </marker>
+          </defs>
+        </svg>
+
+        <div class="note-grid">
+          <div class="note-card">
+            <h4>📌 Zona Kiri & Kanan</h4>
+            <p>
+              Tempat Actor berada. Mereka ada di
+              <strong>luar kotak sistem</strong> karena mereka pengguna dari
+              luar, bukan bagian dari sistem itu sendiri.
+            </p>
+          </div>
+          <div class="note-card">
+            <h4>📌 Zona Tengah (Kotak Besar)</h4>
+            <p>
+              Ini <strong>Subject Boundary</strong>. Semua oval use case ada di
+              dalam sini. Ini adalah "isi" dari sistem UniPortal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ ACTORS ═══════════════ -->
+    <div id="panel-actors" class="panel">
+      <div class="card">
+        <h2>👤 Penjelasan 3 Actor</h2>
+        <p class="desc">
+          Actor = <strong>peran/role</strong>, bukan nama orang. Digambar
+          sebagai stick figure di luar kotak sistem.
+        </p>
+
+        <svg
+          viewBox="0 0 760 200"
+          width="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          font-family="Nunito,sans-serif"
+        >
+          <rect width="760" height="200" fill="#f6f8fc" rx="12" />
+
+          <!-- Student -->
+          <rect
+            x="30"
+            y="20"
+            width="200"
+            height="160"
+            rx="14"
+            fill="white"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <circle
+            cx="130"
+            cy="65"
+            r="22"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <text x="130" y="71" text-anchor="middle" font-size="18">🎓</text>
+          <line
+            x1="130"
+            y1="87"
+            x2="130"
+            y2="120"
+            stroke="#3b7ef8"
+            stroke-width="2.5"
+          />
+          <line
+            x1="108"
+            y1="101"
+            x2="152"
+            y2="101"
+            stroke="#3b7ef8"
+            stroke-width="2.5"
+          />
+          <line
+            x1="130"
+            y1="120"
+            x2="114"
+            y2="142"
+            stroke="#3b7ef8"
+            stroke-width="2.5"
+          />
+          <line
+            x1="130"
+            y1="120"
+            x2="146"
+            y2="142"
+            stroke="#3b7ef8"
+            stroke-width="2.5"
+          />
+          <text
+            x="130"
+            y="162"
+            text-anchor="middle"
+            font-size="14"
+            font-weight="800"
+            fill="#1a58c8"
+          >
+            Student
+          </text>
+          <text
+            x="130"
+            y="176"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6b88c9"
+          >
+            Register · View Grades
+          </text>
+
+          <!-- Professor -->
+          <rect
+            x="280"
+            y="20"
+            width="200"
+            height="160"
+            rx="14"
+            fill="white"
+            stroke="#9b59f5"
+            stroke-width="2"
+          />
+          <circle
+            cx="380"
+            cy="65"
+            r="22"
+            fill="#ede9fe"
+            stroke="#9b59f5"
+            stroke-width="2"
+          />
+          <text x="380" y="71" text-anchor="middle" font-size="18">📚</text>
+          <line
+            x1="380"
+            y1="87"
+            x2="380"
+            y2="120"
+            stroke="#9b59f5"
+            stroke-width="2.5"
+          />
+          <line
+            x1="358"
+            y1="101"
+            x2="402"
+            y2="101"
+            stroke="#9b59f5"
+            stroke-width="2.5"
+          />
+          <line
+            x1="380"
+            y1="120"
+            x2="364"
+            y2="142"
+            stroke="#9b59f5"
+            stroke-width="2.5"
+          />
+          <line
+            x1="380"
+            y1="120"
+            x2="396"
+            y2="142"
+            stroke="#9b59f5"
+            stroke-width="2.5"
+          />
+          <text
+            x="380"
+            y="162"
+            text-anchor="middle"
+            font-size="14"
+            font-weight="800"
+            fill="#6d28d9"
+          >
+            Professor
+          </text>
+          <text
+            x="380"
+            y="176"
+            text-anchor="middle"
+            font-size="11"
+            fill="#9b59f5"
+          >
+            Input Grades · Roster
+          </text>
+
+          <!-- Registrar -->
+          <rect
+            x="530"
+            y="20"
+            width="200"
+            height="160"
+            rx="14"
+            fill="white"
+            stroke="#f07b39"
+            stroke-width="2"
+          />
+          <circle
+            cx="630"
+            cy="65"
+            r="22"
+            fill="#ffedd5"
+            stroke="#f07b39"
+            stroke-width="2"
+          />
+          <text x="630" y="71" text-anchor="middle" font-size="18">🏫</text>
+          <line
+            x1="630"
+            y1="87"
+            x2="630"
+            y2="120"
+            stroke="#f07b39"
+            stroke-width="2.5"
+          />
+          <line
+            x1="608"
+            y1="101"
+            x2="652"
+            y2="101"
+            stroke="#f07b39"
+            stroke-width="2.5"
+          />
+          <line
+            x1="630"
+            y1="120"
+            x2="614"
+            y2="142"
+            stroke="#f07b39"
+            stroke-width="2.5"
+          />
+          <line
+            x1="630"
+            y1="120"
+            x2="646"
+            y2="142"
+            stroke="#f07b39"
+            stroke-width="2.5"
+          />
+          <text
+            x="630"
+            y="162"
+            text-anchor="middle"
+            font-size="14"
+            font-weight="800"
+            fill="#c2550a"
+          >
+            Registrar
+          </text>
+          <text
+            x="630"
+            y="176"
+            text-anchor="middle"
+            font-size="11"
+            fill="#f07b39"
+          >
+            Open Reg. Period
+          </text>
+        </svg>
+
+        <div class="info-box">
+          💡 <strong>Kenapa "Dr. Jones" bukan actor?</strong><br />
+          Karena actor adalah <em>peran</em>, bukan nama orang. Dr. Jones
+          <em>berperan sebagai</em> Professor. Besok kalau Dr. Budi yang
+          mengajar, dia juga actor Professor. Namanya beda, tapi perannya sama.
+        </div>
+        <div class="info-box orange" style="margin-top: 10px">
+          💡 <strong>Kenapa System bukan actor?</strong><br />
+          System (Validate Fee, Send Notif) berjalan <em>otomatis</em> di dalam
+          sistem — tidak ada manusia yang langsung menekannya. Makanya digambar
+          sebagai oval dashed, bukan stick figure.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ BOUNDARY ═══════════════ -->
+    <div id="panel-boundary" class="panel">
+      <div class="card">
+        <h2>📦 System Boundary (Kotak Besar)</h2>
+        <p class="desc">
+          Kotak besar bertuliskan "UniPortal System" adalah
+          <strong>Subject Boundary</strong> — garis pemisah antara apa yang ada
+          di dalam sistem dan apa yang ada di luar.
+        </p>
+
+        <svg
+          viewBox="0 0 700 300"
+          width="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          font-family="Nunito,sans-serif"
+        >
+          <rect width="700" height="300" fill="#f6f8fc" rx="12" />
+
+          <!-- Outside label -->
+          <text
+            x="80"
+            y="50"
+            text-anchor="middle"
+            font-size="13"
+            font-weight="800"
+            fill="#e84040"
+          >
+            LUAR SISTEM
+          </text>
+          <text
+            x="80"
+            y="66"
+            text-anchor="middle"
+            font-size="11"
+            fill="#e84040"
+          >
+            (Actors)
+          </text>
+
+          <!-- Inside label -->
+          <text
+            x="430"
+            y="50"
+            text-anchor="middle"
+            font-size="13"
+            font-weight="800"
+            fill="#1a58c8"
+          >
+            DALAM SISTEM
+          </text>
+          <text
+            x="430"
+            y="66"
+            text-anchor="middle"
+            font-size="11"
+            fill="#3b7ef8"
+          >
+            (Use Cases)
+          </text>
+
+          <!-- Boundary box -->
+          <rect
+            x="200"
+            y="80"
+            width="460"
+            height="190"
+            rx="14"
+            fill="white"
+            stroke="#6366f1"
+            stroke-width="2.5"
+          />
+          <rect x="200" y="80" width="460" height="36" rx="14" fill="#1a2744" />
+          <rect x="200" y="100" width="460" height="16" fill="#1a2744" />
+          <text
+            x="430"
+            y="103"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="white"
+          >
+            UniPortal System
+          </text>
+
+          <!-- Inside items -->
+          <ellipse
+            cx="330"
+            cy="175"
+            rx="80"
+            ry="26"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="1.5"
+          />
+          <text
+            x="330"
+            y="172"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#1a3c8f"
+          >
+            Register for Courses
+          </text>
+          <text
+            x="330"
+            y="185"
+            text-anchor="middle"
+            font-size="9"
+            fill="#6b88c9"
+          >
+            Use Case
+          </text>
+
+          <ellipse
+            cx="540"
+            cy="175"
+            rx="80"
+            ry="26"
+            fill="#ede9fe"
+            stroke="#9b59f5"
+            stroke-width="1.5"
+          />
+          <text
+            x="540"
+            y="172"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#4c1d95"
+          >
+            Input Grades
+          </text>
+          <text
+            x="540"
+            y="185"
+            text-anchor="middle"
+            font-size="9"
+            fill="#9b59f5"
+          >
+            Use Case
+          </text>
+
+          <ellipse
+            cx="430"
+            cy="245"
+            rx="90"
+            ry="26"
+            fill="#fee2e2"
+            stroke="#e84040"
+            stroke-width="1.5"
+            stroke-dasharray="5,3"
+          />
+          <text
+            x="430"
+            y="242"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#991b1b"
+          >
+            Validate Fee Status
+          </text>
+          <text
+            x="430"
+            y="256"
+            text-anchor="middle"
+            font-size="9"
+            fill="#e84040"
+          >
+            System-internal
+          </text>
+
+          <!-- Outside actors -->
+          <circle
+            cx="80"
+            cy="150"
+            r="20"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <text x="80" y="156" text-anchor="middle" font-size="16">🎓</text>
+          <text
+            x="80"
+            y="185"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a58c8"
+          >
+            Student
+          </text>
+
+          <!-- Arrow from actor to boundary -->
+          <line
+            x1="100"
+            y1="152"
+            x2="200"
+            y2="175"
+            stroke="#3b7ef8"
+            stroke-width="2"
+            stroke-dasharray="6,3"
+          />
+          <text
+            x="148"
+            y="158"
+            text-anchor="middle"
+            font-size="10"
+            fill="#3b7ef8"
+            font-weight="700"
+          >
+            interaksi
+          </text>
+
+          <!-- Boundary wall highlight -->
+          <line
+            x1="200"
+            y1="80"
+            x2="200"
+            y2="270"
+            stroke="#e84040"
+            stroke-width="3"
+            stroke-dasharray="8,4"
+          />
+          <text
+            x="200"
+            y="290"
+            text-anchor="middle"
+            font-size="10"
+            fill="#e84040"
+            font-weight="800"
+          >
+            ← batas sistem
+          </text>
+        </svg>
+
+        <div class="note-grid">
+          <div class="note-card">
+            <h4>✅ Di DALAM kotak</h4>
+            <p>
+              Semua Use Case: Register for Courses, View Grades, Input Grades,
+              Download Class Roster, Open Registration Period, Validate Fee
+              Status, Pay Registration Fee, Send Enrollment Notif.
+            </p>
+          </div>
+          <div class="note-card">
+            <h4>❌ Di LUAR kotak</h4>
+            <p>
+              Semua Actor: Student, Professor, Registrar. Mereka berinteraksi
+              dengan sistem tapi bukan bagian dari sistem itu sendiri.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ USE CASES ═══════════════ -->
+    <div id="panel-usecases" class="panel">
+      <div class="card">
+        <h2>⭕ Jenis-Jenis Use Case di Diagram</h2>
+        <p class="desc">
+          Ada <strong>3 jenis oval</strong> di diagram ini. Masing-masing punya
+          warna & garis yang berbeda untuk menunjukkan jenisnya.
+        </p>
+
+        <svg
+          viewBox="0 0 700 260"
+          width="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          font-family="Nunito,sans-serif"
+        >
+          <rect width="700" height="260" fill="#f6f8fc" rx="12" />
+
+          <!-- Type 1: Normal (solid border) -->
+          <rect
+            x="30"
+            y="30"
+            width="190"
+            height="200"
+            rx="14"
+            fill="white"
+            stroke="#dde3f0"
+            stroke-width="1.5"
+          />
+          <text
+            x="125"
+            y="56"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a2744"
+          >
+            Tipe 1: Normal
+          </text>
+          <ellipse
+            cx="125"
+            cy="110"
+            rx="75"
+            ry="28"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="2.5"
+          />
+          <text
+            x="125"
+            y="106"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="#1a3c8f"
+          >
+            Register for
+          </text>
+          <text
+            x="125"
+            y="120"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="#1a3c8f"
+          >
+            Courses
+          </text>
+          <text
+            x="125"
+            y="165"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            Border solid biru/ungu
+          </text>
+          <text
+            x="125"
+            y="180"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            = use case biasa
+          </text>
+          <text
+            x="125"
+            y="198"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            Ada actor langsung
+          </text>
+
+          <!-- Type 2: System internal (red dashed) -->
+          <rect
+            x="255"
+            y="30"
+            width="190"
+            height="200"
+            rx="14"
+            fill="white"
+            stroke="#dde3f0"
+            stroke-width="1.5"
+          />
+          <text
+            x="350"
+            y="56"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a2744"
+          >
+            Tipe 2: System
+          </text>
+          <ellipse
+            cx="350"
+            cy="110"
+            rx="75"
+            ry="28"
+            fill="#fee2e2"
+            stroke="#e84040"
+            stroke-width="2"
+            stroke-dasharray="7,4"
+          />
+          <text
+            x="350"
+            y="106"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="#991b1b"
+          >
+            Validate Fee
+          </text>
+          <text
+            x="350"
+            y="120"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="#991b1b"
+          >
+            Status
+          </text>
+          <text
+            x="350"
+            y="165"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            Border merah putus-putus
+          </text>
+          <text
+            x="350"
+            y="180"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            = system-internal
+          </text>
+          <text
+            x="350"
+            y="198"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            Dipanggil otomatis
+          </text>
+
+          <!-- Type 3: New extended (green dashed) -->
+          <rect
+            x="480"
+            y="30"
+            width="190"
+            height="200"
+            rx="14"
+            fill="white"
+            stroke="#dde3f0"
+            stroke-width="1.5"
+          />
+          <text
+            x="575"
+            y="56"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a2744"
+          >
+            Tipe 3: Baru ✦
+          </text>
+          <ellipse
+            cx="575"
+            cy="110"
+            rx="75"
+            ry="28"
+            fill="#d1fae5"
+            stroke="#27ae6f"
+            stroke-width="2"
+            stroke-dasharray="7,4"
+          />
+          <text
+            x="575"
+            y="106"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="#064e3b"
+          >
+            Pay Registration
+          </text>
+          <text
+            x="575"
+            y="120"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="#064e3b"
+          >
+            Fee
+          </text>
+          <text
+            x="575"
+            y="165"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            Border hijau putus-putus
+          </text>
+          <text
+            x="575"
+            y="180"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            = use case baru (NEW)
+          </text>
+          <text
+            x="575"
+            y="198"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            Ditambahkan / extend
+          </text>
+        </svg>
+
+        <ul class="step-list">
+          <li>
+            <div class="step-num" style="background: #3b7ef8">1</div>
+            <div>
+              <strong>Register for Courses (REQ-1)</strong> — Student pilih &
+              daftar matkul di awal semester
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background: #3b7ef8">2</div>
+            <div>
+              <strong>View Grades (REQ-2)</strong> — Student lihat nilai setelah
+              semester selesai
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background: #9b59f5">3</div>
+            <div>
+              <strong>Input Grades (REQ-3)</strong> — Dosen masukkan nilai
+              mahasiswa di kelasnya
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background: #9b59f5">4</div>
+            <div>
+              <strong>Download Class Roster (REQ-4)</strong> — Dosen unduh
+              daftar mahasiswa yang terdaftar
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background: #f07b39">5</div>
+            <div>
+              <strong>Open Registration Period (REQ-5)</strong> — Registrar buka
+              jendela waktu registrasi
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background: #e84040">6</div>
+            <div>
+              <strong>Validate Fee Status (REQ-6)</strong> — Sistem otomatis cek
+              apakah SPP sudah lunas
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background: #27ae6f">7</div>
+            <div>
+              <strong>Pay Registration Fee (REQ-7) ✦ NEW</strong> — Sistem
+              arahkan ke pembayaran jika SPP belum lunas
+            </div>
+          </li>
+          <li>
+            <div class="step-num" style="background: #27ae6f">8</div>
+            <div>
+              <strong>Send Enrollment Notif. (REQ-8) ✦ NEW</strong> — Sistem
+              kirim notifikasi setelah registrasi berhasil
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ═══════════════ RELATIONS ═══════════════ -->
+    <div id="panel-relations" class="panel">
+      <div class="card">
+        <h2>🔗 Jenis-Jenis Relasi (Garis)</h2>
+        <p class="desc">
+          Ada <strong>3 jenis garis</strong> di diagram. Ini yang paling penting
+          untuk dipahami!
+        </p>
+
+        <svg
+          viewBox="0 0 700 280"
+          width="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          font-family="Nunito,sans-serif"
+        >
+          <defs>
+            <marker
+              id="rb"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L8,3.5 z" fill="#3b7ef8" />
+            </marker>
+            <marker
+              id="ro"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L8,3.5 z" fill="#e84040" />
+            </marker>
+            <marker
+              id="rg"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L8,3.5 z" fill="#27ae6f" />
+            </marker>
+          </defs>
+          <rect width="700" height="280" fill="#f6f8fc" rx="12" />
+
+          <!-- Type 1: Association -->
+          <rect
+            x="20"
+            y="20"
+            width="200"
+            height="230"
+            rx="12"
+            fill="white"
+            stroke="#dde3f0"
+            stroke-width="1.5"
+          />
+          <text
+            x="120"
+            y="44"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a2744"
+          >
+            Association
+          </text>
+          <text
+            x="120"
+            y="58"
+            text-anchor="middle"
+            font-size="10.5"
+            fill="#6a7a9a"
+          >
+            Garis solid biru
+          </text>
+          <circle
+            cx="60"
+            cy="130"
+            r="16"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="2"
+          />
+          <text x="60" y="135" text-anchor="middle" font-size="13">🎓</text>
+          <line
+            x1="76"
+            y1="130"
+            x2="154"
+            y2="130"
+            stroke="#3b7ef8"
+            stroke-width="2.5"
+            marker-end="url(#rb)"
+          />
+          <ellipse
+            cx="185"
+            cy="130"
+            rx="38"
+            ry="20"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="1.5"
+          />
+          <text
+            x="185"
+            y="134"
+            text-anchor="middle"
+            font-size="10"
+            font-weight="700"
+            fill="#1a3c8f"
+          >
+            Register
+          </text>
+          <text
+            x="120"
+            y="185"
+            text-anchor="middle"
+            font-size="11"
+            fill="#3b7ef8"
+            font-weight="700"
+          >
+            Actor langsung
+          </text>
+          <text
+            x="120"
+            y="200"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            pakai use case ini
+          </text>
+          <text
+            x="120"
+            y="216"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            Selalu ada interaksi
+          </text>
+
+          <!-- Type 2: Include -->
+          <rect
+            x="240"
+            y="20"
+            width="200"
+            height="230"
+            rx="12"
+            fill="white"
+            stroke="#dde3f0"
+            stroke-width="1.5"
+          />
+          <text
+            x="340"
+            y="44"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a2744"
+          >
+            «include»
+          </text>
+          <text
+            x="340"
+            y="58"
+            text-anchor="middle"
+            font-size="10.5"
+            fill="#6a7a9a"
+          >
+            Garis putus merah
+          </text>
+          <ellipse
+            cx="290"
+            cy="115"
+            rx="42"
+            ry="22"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="1.5"
+          />
+          <text
+            x="290"
+            y="119"
+            text-anchor="middle"
+            font-size="10"
+            font-weight="700"
+            fill="#1a3c8f"
+          >
+            Register
+          </text>
+          <line
+            x1="290"
+            y1="137"
+            x2="290"
+            y2="158"
+            stroke="#e84040"
+            stroke-width="2"
+            stroke-dasharray="6,3"
+            marker-end="url(#ro)"
+          />
+          <rect x="250" y="140" width="80" height="18" rx="4" fill="white" />
+          <text
+            x="290"
+            y="153"
+            text-anchor="middle"
+            font-size="10"
+            font-weight="700"
+            fill="#e84040"
+          >
+            «include»
+          </text>
+          <ellipse
+            cx="290"
+            cy="180"
+            rx="42"
+            ry="20"
+            fill="#fee2e2"
+            stroke="#e84040"
+            stroke-width="1.5"
+            stroke-dasharray="5,3"
+          />
+          <text
+            x="290"
+            y="184"
+            text-anchor="middle"
+            font-size="10"
+            font-weight="700"
+            fill="#991b1b"
+          >
+            Validate Fee
+          </text>
+          <text
+            x="340"
+            y="220"
+            text-anchor="middle"
+            font-size="11"
+            fill="#e84040"
+            font-weight="700"
+          >
+            SELALU dijalankan
+          </text>
+          <text
+            x="340"
+            y="235"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            Tidak bisa di-skip
+          </text>
+
+          <!-- Type 3: Extend -->
+          <rect
+            x="460"
+            y="20"
+            width="220"
+            height="230"
+            rx="12"
+            fill="white"
+            stroke="#dde3f0"
+            stroke-width="1.5"
+          />
+          <text
+            x="570"
+            y="44"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a2744"
+          >
+            «extend»
+          </text>
+          <text
+            x="570"
+            y="58"
+            text-anchor="middle"
+            font-size="10.5"
+            fill="#6a7a9a"
+          >
+            Garis putus hijau
+          </text>
+          <ellipse
+            cx="520"
+            cy="115"
+            rx="48"
+            ry="22"
+            fill="#fee2e2"
+            stroke="#e84040"
+            stroke-width="1.5"
+            stroke-dasharray="5,3"
+          />
+          <text
+            x="520"
+            y="119"
+            text-anchor="middle"
+            font-size="10"
+            font-weight="700"
+            fill="#991b1b"
+          >
+            Validate Fee
+          </text>
+          <line
+            x1="520"
+            y1="137"
+            x2="520"
+            y2="158"
+            stroke="#27ae6f"
+            stroke-width="2"
+            stroke-dasharray="6,3"
+            marker-end="url(#rg)"
+          />
+          <rect x="480" y="140" width="80" height="18" rx="4" fill="white" />
+          <text
+            x="520"
+            y="153"
+            text-anchor="middle"
+            font-size="10"
+            font-weight="700"
+            fill="#27ae6f"
+          >
+            «extend»
+          </text>
+          <ellipse
+            cx="520"
+            cy="180"
+            rx="48"
+            ry="20"
+            fill="#d1fae5"
+            stroke="#27ae6f"
+            stroke-width="1.5"
+            stroke-dasharray="5,3"
+          />
+          <text
+            x="520"
+            y="184"
+            text-anchor="middle"
+            font-size="10"
+            font-weight="700"
+            fill="#064e3b"
+          >
+            Pay Fee
+          </text>
+          <text
+            x="570"
+            y="218"
+            text-anchor="middle"
+            font-size="11"
+            fill="#27ae6f"
+            font-weight="700"
+          >
+            HANYA jika kondisi
+          </text>
+          <text
+            x="570"
+            y="233"
+            text-anchor="middle"
+            font-size="11"
+            fill="#6a7a9a"
+          >
+            terpenuhi (opsional)
+          </text>
+        </svg>
+
+        <div class="info-box">
+          🆚 <strong>Bedanya «include» vs «extend»:</strong><br /><br />
+          <strong>«include»</strong> = kayak ATM — setiap tarik tunai
+          <em>pasti</em> cek saldo dulu. Tidak bisa dilangkahi.<br /><br />
+          <strong>«extend»</strong> = kayak lampu merah — hanya berhenti
+          <em>kalau</em> merah. Kalau hijau, lanjut terus. Jadi kalau SPP sudah
+          lunas, «extend» ke Pay Fee tidak terjadi.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ FLOW ═══════════════ -->
+    <div id="panel-flow" class="panel">
+      <div class="card">
+        <h2>🔄 Alur Lengkap Diagram (Step by Step)</h2>
+        <p class="desc">Begini cara membaca diagram dari awal sampai akhir:</p>
+
+        <svg
+          viewBox="0 0 700 520"
+          width="100%"
+          xmlns="http://www.w3.org/2000/svg"
+          font-family="Nunito,sans-serif"
+        >
+          <defs>
+            <marker
+              id="fa"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L8,3.5 z" fill="#1a2744" />
+            </marker>
+            <marker
+              id="fb"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L8,3.5 z" fill="#3b7ef8" />
+            </marker>
+            <marker
+              id="fr"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L8,3.5 z" fill="#e84040" />
+            </marker>
+            <marker
+              id="fg"
+              markerWidth="8"
+              markerHeight="8"
+              refX="6"
+              refY="3.5"
+              orient="auto"
+            >
+              <path d="M0,0 L0,7 L8,3.5 z" fill="#27ae6f" />
+            </marker>
+          </defs>
+          <rect width="700" height="520" fill="#f6f8fc" rx="12" />
+
+          <!-- Step 1: Student -->
+          <circle
+            cx="80"
+            cy="80"
+            r="28"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="2.5"
+          />
+          <text x="80" y="86" text-anchor="middle" font-size="22">🎓</text>
+          <text
+            x="80"
+            y="122"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#1a58c8"
+          >
+            Student
+          </text>
+          <text
+            x="80"
+            y="136"
+            text-anchor="middle"
+            font-size="10"
+            fill="#6a7a9a"
+          >
+            klik Register
+          </text>
+
+          <!-- Arrow to Register -->
+          <line
+            x1="108"
+            y1="80"
+            x2="218"
+            y2="80"
+            stroke="#3b7ef8"
+            stroke-width="2"
+            marker-end="url(#fb)"
+          />
+
+          <!-- Register for Courses -->
+          <ellipse
+            cx="320"
+            cy="80"
+            rx="100"
+            ry="32"
+            fill="#dbeafe"
+            stroke="#3b7ef8"
+            stroke-width="2.5"
+          />
+          <text
+            x="320"
+            y="76"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="#1a3c8f"
+          >
+            Register for Courses
+          </text>
+          <text
+            x="320"
+            y="92"
+            text-anchor="middle"
+            font-size="10"
+            fill="#6b88c9"
+          >
+            REQ-1
+          </text>
+
+          <!-- include arrow down -->
+          <line
+            x1="320"
+            y1="112"
+            x2="320"
+            y2="188"
+            stroke="#e84040"
+            stroke-width="2"
+            stroke-dasharray="7,4"
+            marker-end="url(#fr)"
+          />
+          <rect
+            x="276"
+            y="142"
+            width="88"
+            height="20"
+            rx="5"
+            fill="white"
+            stroke="#e84040"
+            stroke-width="1"
+          />
+          <text
+            x="320"
+            y="156"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#e84040"
+          >
+            «include»
+          </text>
+
+          <!-- extend arrow right to notif -->
+          <line
+            x1="420"
+            y1="80"
+            x2="548"
+            y2="80"
+            stroke="#27ae6f"
+            stroke-width="2"
+            stroke-dasharray="7,4"
+            marker-end="url(#fg)"
+          />
+          <rect
+            x="440"
+            y="62"
+            width="88"
+            height="20"
+            rx="5"
+            fill="white"
+            stroke="#27ae6f"
+            stroke-width="1"
+          />
+          <text
+            x="484"
+            y="76"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#27ae6f"
+          >
+            «extend»
+          </text>
+
+          <!-- Send Notif -->
+          <ellipse
+            cx="615"
+            cy="80"
+            rx="80"
+            ry="30"
+            fill="#d1fae5"
+            stroke="#27ae6f"
+            stroke-width="2"
+            stroke-dasharray="6,3"
+          />
+          <text
+            x="615"
+            y="76"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#064e3b"
+          >
+            Send Enrollment
+          </text>
+          <text
+            x="615"
+            y="90"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#064e3b"
+          >
+            Notif. ✦
+          </text>
+          <text
+            x="615"
+            y="128"
+            text-anchor="middle"
+            font-size="10"
+            fill="#27ae6f"
+          >
+            jika registrasi berhasil
+          </text>
+
+          <!-- Validate Fee Status -->
+          <ellipse
+            cx="320"
+            cy="240"
+            rx="105"
+            ry="34"
+            fill="#fee2e2"
+            stroke="#e84040"
+            stroke-width="2"
+            stroke-dasharray="6,3"
+          />
+          <text
+            x="320"
+            y="236"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="#991b1b"
+          >
+            Validate Fee Status
+          </text>
+          <text
+            x="320"
+            y="252"
+            text-anchor="middle"
+            font-size="10"
+            fill="#e84040"
+          >
+            REQ-6 · system-internal
+          </text>
+
+          <!-- Decision box -->
+          <polygon
+            points="320,298 380,330 320,362 260,330"
+            fill="#fff9e6"
+            stroke="#f59e0b"
+            stroke-width="2"
+          />
+          <text
+            x="320"
+            y="326"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="800"
+            fill="#92400e"
+          >
+            SPP
+          </text>
+          <text
+            x="320"
+            y="341"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="800"
+            fill="#92400e"
+          >
+            Lunas?
+          </text>
+
+          <!-- Arrow to decision -->
+          <line
+            x1="320"
+            y1="274"
+            x2="320"
+            y2="298"
+            stroke="#1a2744"
+            stroke-width="2"
+            marker-end="url(#fa)"
+          />
+
+          <!-- YES branch -->
+          <line
+            x1="380"
+            y1="330"
+            x2="500"
+            y2="330"
+            stroke="#27ae6f"
+            stroke-width="2"
+            marker-end="url(#fg)"
+          />
+          <text
+            x="438"
+            y="322"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#27ae6f"
+          >
+            YA ✓
+          </text>
+          <rect
+            x="500"
+            y="310"
+            width="110"
+            height="40"
+            rx="10"
+            fill="#d1fae5"
+            stroke="#27ae6f"
+            stroke-width="2"
+          />
+          <text
+            x="555"
+            y="328"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#064e3b"
+          >
+            Registrasi
+          </text>
+          <text
+            x="555"
+            y="343"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#064e3b"
+          >
+            Berhasil ✅
+          </text>
+
+          <!-- NO branch -->
+          <line
+            x1="320"
+            y1="362"
+            x2="320"
+            y2="408"
+            stroke="#e84040"
+            stroke-width="2"
+            stroke-dasharray="7,4"
+            marker-end="url(#fg)"
+          />
+          <text
+            x="340"
+            y="388"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#e84040"
+          >
+            TIDAK ✗
+          </text>
+          <rect
+            x="260"
+            y="392"
+            width="88"
+            height="20"
+            rx="5"
+            fill="white"
+            stroke="#27ae6f"
+            stroke-width="1"
+          />
+          <text
+            x="304"
+            y="406"
+            text-anchor="middle"
+            font-size="11"
+            font-weight="700"
+            fill="#27ae6f"
+          >
+            «extend»
+          </text>
+
+          <!-- Pay Registration Fee -->
+          <ellipse
+            cx="320"
+            cy="460"
+            rx="110"
+            ry="34"
+            fill="#d1fae5"
+            stroke="#27ae6f"
+            stroke-width="2"
+            stroke-dasharray="6,3"
+          />
+          <text
+            x="320"
+            y="456"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="700"
+            fill="#064e3b"
+          >
+            Pay Registration Fee ✦
+          </text>
+          <text
+            x="320"
+            y="472"
+            text-anchor="middle"
+            font-size="10"
+            fill="#27ae6f"
+          >
+            REQ-7 · NEW
+          </text>
+
+          <!-- Registrar flow -->
+          <circle
+            cx="80"
+            cy="330"
+            r="24"
+            fill="#ffedd5"
+            stroke="#f07b39"
+            stroke-width="2"
+          />
+          <text x="80" y="336" text-anchor="middle" font-size="18">🏫</text>
+          <text
+            x="80"
+            y="368"
+            text-anchor="middle"
+            font-size="12"
+            font-weight="800"
+            fill="#c2550a"
+          >
+            Registrar
+          </text>
+          <line
+            x1="104"
+            y1="330"
+            x2="175"
+            y2="330"
+            stroke="#f07b39"
+            stroke-width="2"
+            marker-end="url(#fr)"
+          />
+          <text
+            x="138"
+            y="322"
+            text-anchor="middle"
+            font-size="10"
+            fill="#f07b39"
+            font-weight="700"
+          >
+            buka periode
+          </text>
+          <ellipse
+            cx="220"
+            cy="330"
+            rx="42"
+            ry="22"
+            fill="#ffedd5"
+            stroke="#f07b39"
+            stroke-width="1.5"
+          />
+          <text
+            x="220"
+            y="334"
+            text-anchor="middle"
+            font-size="10"
+            font-weight="700"
+            fill="#7c3009"
+          >
+            Open Reg.
+          </text>
+        </svg>
+
+        <div class="info-box green" style="margin-top: 16px">
+          ✅ <strong>Kesimpulan Alur:</strong><br />
+          Student klik Register → sistem <em>wajib</em> cek fee (include) →
+          kalau lunas: registrasi sukses + notif terkirim → kalau belum lunas:
+          extend ke Pay Fee dulu.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function show(id) {
+        document
+          .querySelectorAll(".panel")
+          .forEach((p) => p.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById("panel-" + id).classList.add("active");
+        event.target.classList.add("active");
+      }
+    </script>
+  </body>
+</html>
