@@ -1,0 +1,212 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #f0f4fb;
+  font-family: "Nunito", sans-serif;
+  padding: 24px 16px;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 900;
+  color: #1a2744;
+  margin-bottom: 4px;
+}
+.sub {
+  text-align: center;
+  font-size: 13px;
+  color: #8a9abf;
+  margin-bottom: 24px;
+}
+
+/* Tab buttons */
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.tab-btn {
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 2px solid #dde3f0;
+  background: white;
+  font-family: "Nunito", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #5a6a8a;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab-btn:hover {
+  border-color: #3b7ef8;
+  color: #3b7ef8;
+}
+.tab-btn.active {
+  background: #1a2744;
+  color: white;
+  border-color: #1a2744;
+}
+
+/* Panels */
+.panel {
+  display: none;
+}
+.panel.active {
+  display: block;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 6px 30px rgba(30, 50, 100, 0.1);
+  padding: 28px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card h2 {
+  font-size: 18px;
+  font-weight: 900;
+  color: #1a2744;
+  margin-bottom: 6px;
+}
+.card .desc {
+  font-size: 13.5px;
+  color: #6a7a9a;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+/* highlight badge */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 800;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+.badge-blue {
+  background: #dbeafe;
+  color: #1a3c8f;
+}
+.badge-purple {
+  background: #ede9fe;
+  color: #4c1d95;
+}
+.badge-orange {
+  background: #ffedd5;
+  color: #7c3009;
+}
+.badge-red {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.badge-green {
+  background: #d1fae5;
+  color: #064e3b;
+}
+
+/* Info box */
+.info-box {
+  background: #f6f8fc;
+  border-left: 4px solid #3b7ef8;
+  border-radius: 0 10px 10px 0;
+  padding: 12px 16px;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #3a4a6b;
+  line-height: 1.7;
+}
+.info-box.orange {
+  border-color: #f07b39;
+  background: #fff8f3;
+}
+.info-box.green {
+  border-color: #27ae6f;
+  background: #f0fdf6;
+}
+.info-box.red {
+  border-color: #e84040;
+  background: #fff5f5;
+}
+.info-box.purple {
+  border-color: #9b59f5;
+  background: #faf5ff;
+}
+
+/* ── SVG diagram pieces ── */
+svg {
+  display: block;
+  margin: 0 auto;
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+@media (max-width: 600px) {
+  .note-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.note-card {
+  background: #f6f8fc;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1.5px solid #dde3f0;
+}
+.note-card h4 {
+  font-size: 13px;
+  font-weight: 800;
+  color: #1a2744;
+  margin-bottom: 4px;
+}
+.note-card p {
+  font-size: 12.5px;
+  color: #6a7a9a;
+  line-height: 1.5;
+}
+
+.step-list {
+  list-style: none;
+  margin-top: 14px;
+}
+.step-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid #eef0f6;
+  font-size: 13.5px;
+  color: #3a4a6b;
+  line-height: 1.5;
+}
+.step-list li:last-child {
+  border-bottom: none;
+}
+.step-num {
+  min-width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1a2744;
+  color: white;
+  font-weight: 800;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
